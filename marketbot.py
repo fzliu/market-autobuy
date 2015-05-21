@@ -2,7 +2,7 @@
 marketbot.py: Automated price checker for the Steam Community Marketplace.
 
 author: Frank Liu - frank.zijie@gmail.com
-last modified: 05/19/2015
+last modified: 05/21/2015
 
 Copyright (c) 2015, Frank Liu
 All rights reserved.
@@ -85,12 +85,12 @@ def _checkdep(cmd):
 
     # OSError is raised upon failure
     try:
-        if subprocess.call(cmd) == 0:
-            return True
-    except OSError:
-        pass
+        with open(os.devnull, "w") as f:
+            subprocess.check_call(cmd, std)
+    except subprocess.CalledProcessError:
+        return False
 
-    return False
+    return True
 
 
 def setup():
