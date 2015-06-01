@@ -1,8 +1,8 @@
 """
-marketbot.py: 
+wearfloat.py: Acquire float values of a user's inventory via Steam API.
 
 author: Frank Liu - frank.zijie@gmail.com
-last modified: 05/21/2015
+last modified: 06/01/2015
 
 Copyright (c) 2015, Frank Liu
 All rights reserved.
@@ -32,12 +32,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import argparse
 import json
+import pprint
 import requests
 
 # argparse
 parser = argparse.ArgumentParser(description="Bot for the steam community marketplace.")
-parser.add_argument("-k", "--key", type=str, required=True, help="weapon name")
-parser.add_argument("-i", "--steamid", type=str, required=True, help="skin name")
+parser.add_argument("-k", "--key", type=str, required=True, help="API key")
+parser.add_argument("-i", "--steamid", type=str, required=True, help="player Steam ID")
 
 # inventory API
 INVENTORY_API_URL = "http://api.steampowered.com/IEconItems_730/GetPlayerItems/v0001/"
@@ -55,5 +56,7 @@ if __name__ == "__main__":
         r = requests.get(url)
         data = json.loads(r.content)
 
+    printer = pprint.PrettyPrinter()
     for item in data["result"]["items"]:
-        print("\t{0}".format(item))
+        printer.pprint(item)
+        print("-"*25)

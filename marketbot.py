@@ -36,7 +36,6 @@ TODOs:
 import argparse
 from email.mime.text import MIMEText
 import os
-import smtpd
 import smtplib
 import subprocess
 import sys
